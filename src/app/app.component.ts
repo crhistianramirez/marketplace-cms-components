@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { PageContentDoc } from './models/PageContentDoc.interface';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { CarouselEditorComponent } from './components/carousel-editor/carousel-editor.component';
 
 @Component({
   selector: 'app-root',
@@ -7,21 +8,23 @@ import { PageContentDoc } from './models/PageContentDoc.interface';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  constructor(private modalService: NgbModal) {
+
+  }
   title = 'marketplace-cms-components';
   buyerSiteUrl = 'https://mgr-buyer-test.ordercloud-qa.com';
   editorOptions = {
-    oc_product_url_parser: (p: any) => {
-      return `${this.buyerSiteUrl}/product/${p.ID}/view`;
+    ordercloud: {
+      marketplaceUrl: 'https://marketplace-middleware-test.azurewebsites.net',
+      access_token: 'INSERT_ACCESS_TOKEN_HERE'
     },
     content_css:
-      'https://mgrstoragetest.azureedge.net/buyerweb/styles.e94215343d3493186ae1.css'
+      ['https://mgrstoragetest.azureedge.net/buyerweb/styles.e94215343d3493186ae1.css', 'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css', 'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css']
   };
-  // currentPage: Partial<PageContentDoc> = {
-  //   Title: 'Test Page Title',
-  //   Url: 'test-my-url',
-  //   Content: '<h1>TEST CONTENT</h1>',
-  //   NavigationTitle: 'Test Page',
-  //   Description: 'Short 300 word description to be used in Meta tags',
-  //   Active: true
-  // };
+
+  openModal() {
+    const modalRef = this.modalService.open(CarouselEditorComponent, {size: 'xl'});
+    // modalRef.componentInstance.onSuccess = callback;
+    // modalRef.componentInstance.fileMeta = meta;
+  }
 }

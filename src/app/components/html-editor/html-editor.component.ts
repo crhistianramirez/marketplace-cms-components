@@ -1,40 +1,73 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, NgZone } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AssetPickerComponent } from '../asset-picker/asset-picker.component';
+import { CarouselEditorComponent } from '../carousel-editor/carousel-editor.component';
+import { v4 as guid } from 'uuid';
 
 @Component({
   selector: 'cms-html-editor',
   templateUrl: './html-editor.component.html',
-  styleUrls: ['./html-editor.component.scss']
+  styleUrls: ['./html-editor.component.scss'],
 })
 export class HtmlEditorComponent implements OnInit {
-  @Input() ocToken: string;
   @Input() renderSiteUrl: string;
   @Input() initialValue: string;
   @Input() editorOptions: any;
   resolvedEditorOptions: any = {};
 
+  tinymceId = `tiny-angular_${guid()}`
+
   defaultEditorOptions = {
-    marketplaceUrl: 'https://marketplace-middleware-test.azurewebsites.net',
     base_url: '/tinymce',
     suffix: '.min',
     content_css:
       'https://mgrstoragetest.azureedge.net/buyerweb/styles.e94215343d3493186ae1.css',
-    content_style: 'body {padding:15px !important;}',
+    content_style: `
+    body {
+      padding:15px !important;
+    }
+    #tinymce[contenteditable="true"] .c-slide-container img { 
+      display: none;
+    }
+
+    #tinymce[contenteditable="true"] .c-slide-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #tinymce[contenteditable="true"] .c-slide-container::before {
+      content: '';
+      width: 100%;
+      height: 200px;
+      position: absolute;
+      background-color: lightgray;
+    }
+    #tinymce[contenteditable="true"] .c-slide-container::after {
+      font-weight: bold;
+      content: 'Carousel preview not available in edit mode. Click View > Preview';
+      z-index: 0;
+    }
+    `,
     height: 500,
 
     plugins: [
       'ordercloud print preview paste importcss searchreplace autolink autosave save directionality',
       'code visualblocks visualchars fullscreen image link media template codesample table charmap',
       'hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools',
-      'textpattern noneditable help charmap quickbars emoticons'
+      'textpattern noneditable help charmap emoticons'
     ],
     menubar: 'file edit view insert format tools table help',
-    toolbar:
-      'oc-product undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat',
+    toolbar: [
+      'oc-carousel oc-product',
+      'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat'
+    ],
     quickbars_selection_toolbar:
       'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
     imagetools_toolbar:
       'rotateleft rotateright | flipv fliph | editimage imageoptions',
-    contextmenu: 'link image imagetools table oc-product',
+    contextmenu: 'link image imagetools table oc-product oc-row oc-col',
     toolbar_sticky: true,
     autosave_ask_before_unload: true,
     autosave_interval: '30s',
@@ -43,18 +76,19 @@ export class HtmlEditorComponent implements OnInit {
     autosave_retention: '2m',
     importcss_append: true,
     toolbar_mode: 'sliding',
+    extended_valid_elements : "script[src|async|defer|type|charset]",
 
-    /**
-     * Allows user to browse and select images from ordercloud cms
-     */
-    file_picker_callback: function(callback, value, meta) {
-      // importing tinymce breaks things so we have to use instance from window
-      window['tinymce'].execCommand('ocAssetPicker', true, {
-        callback,
-        value,
-        meta
-      });
-    },
+    // /**
+    //  * Allows user to browse and select images from ordercloud cms
+    //  */
+    // file_picker_callback: function(callback, value, meta) {
+    //   // importing tinymce breaks things so we have to use instance from window
+    //   window['tinymce'].execCommand('ocAssetPicker', true, {
+    //     callback,
+    //     value,
+    //     meta
+    //   });
+    // },
 
     /**
      * Adds an advanced tab to set things like style/border/space
@@ -81,14 +115,37 @@ export class HtmlEditorComponent implements OnInit {
     imagetools_cors_hosts: ['marktplacetest.blob.core.windows.net']
   };
 
-  constructor() {}
+  constructor(private modalService: NgbModal, public zone: NgZone) {
+  }
 
   ngOnInit(): void {
-    this.defaultEditorOptions['ocToken'] = this.ocToken; // not available until ngOnInit
+    const classContext = this;
     Object.assign(
       this.resolvedEditorOptions,
       this.defaultEditorOptions,
       this.editorOptions
     );
+
+    this.resolvedEditorOptions.file_picker_callback = this.openAssetPicker.bind(this);
+    this.resolvedEditorOptions.ordercloud.open_carousel_editor = (editor) => {
+      this.zone.run(() => {
+        // we need to manually trigger change detection
+        // because this is running outside of the scope of angular
+        this.openCarouselEditor.bind(this)(editor, classContext)
+      })
+    }
+  }
+
+  openAssetPicker(callback, value, meta) {
+    const modalRef = this.modalService.open(AssetPickerComponent);
+    modalRef.componentInstance.onSuccess = callback;
+    modalRef.componentInstance.fileMeta = meta;
+  }
+
+  openCarouselEditor(editor) {
+    const modalRef = this.modalService.open(CarouselEditorComponent, {size: 'xl'});
+    modalRef.result.then((html) => {
+      editor.insertContent(html);
+    })
   }
 }
