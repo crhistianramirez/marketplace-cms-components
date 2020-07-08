@@ -1,9 +1,8 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MarketplaceSDK } from 'marketplace-javascript-sdk';
 import * as MarketplaceSdkInstance from 'marketplace-javascript-sdk';
 import { OcTokenService } from '@ordercloud/angular-sdk';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { EventEmitter } from 'protractor';
 
 @Component({
   selector: 'cms-asset-manager',
@@ -83,5 +82,4 @@ export class AssetManagerComponent implements OnInit {
   formValid(): boolean {
     return !this.assetForms.pristine && this.assetForms.valid;
   }
-
 }
