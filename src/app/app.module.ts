@@ -18,7 +18,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SectionPickerComponent } from './components/section-picker/section-picker.component';
 import { SectionTemplateRendererComponent } from './components/section-template-renderer/section-template-renderer.component';
 import { SafeHtmlPipe } from './pipes/safe-html.pipe';
-import { AssetManagerComponent } from './components/asset-manager/asset-manager.component';
+import { AssetListComponent } from './components/asset-list/asset-list.component';
+import { AssetUpdateComponent } from './components/asset-update/asset-update.component';
+import { AssetUploadComponent } from './components/asset-upload/asset-upload.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,9 @@ import { AssetManagerComponent } from './components/asset-manager/asset-manager.
     SectionPickerComponent,
     SectionTemplateRendererComponent,
     SafeHtmlPipe,
-    AssetManagerComponent
+    AssetListComponent,
+    AssetUpdateComponent,
+    AssetUploadComponent
   ],
   imports: [
     BrowserModule,
