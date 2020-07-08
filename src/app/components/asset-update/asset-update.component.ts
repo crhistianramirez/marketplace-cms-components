@@ -1,7 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MarketplaceSDK, Asset } from 'marketplace-javascript-sdk';
-import * as MarketplaceSdkInstance from 'marketplace-javascript-sdk';
-import { OcTokenService } from '@ordercloud/angular-sdk';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({

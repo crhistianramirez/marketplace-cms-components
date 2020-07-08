@@ -1,8 +1,5 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MarketplaceSDK } from 'marketplace-javascript-sdk';
-import * as MarketplaceSdkInstance from 'marketplace-javascript-sdk';
-import { OcTokenService } from '@ordercloud/angular-sdk';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
