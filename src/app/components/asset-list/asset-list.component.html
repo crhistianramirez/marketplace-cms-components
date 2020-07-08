@@ -9,7 +9,11 @@
       <div *ngIf="assets && assets.Items.length">
         <button class="btn btn-primary" (click)="handleUploadAssetModal(uploadAssetModal)">Upload {{type}}</button>
         <div *ngFor="let asset of assets.Items">
-          <cms-asset-update [assetType]="type" [isNew]="false" [asset]="asset"></cms-asset-update>
+          <cms-asset-update [assetType]="type"
+                            [isNew]="false"
+                            [asset]="asset"
+                            (onSubmit)="handleSubmit($event)"
+                            (onDelete)="listAssets()"></cms-asset-update>
         </div>
       </div>
       <div class="no-results" *ngIf="assets && !assets.Items.length">

@@ -15,8 +15,6 @@ export class AssetListComponent implements OnInit {
   modalReference: NgbModalRef;
   assetTypes: string[] = ['Image', 'Theme', 'Attachment', 'Structured'];
   selectedTab: string = 'Image';
-  @Output() onSubmit = new EventEmitter();
-  @Output() onDelete = new EventEmitter();
 
   constructor(
     private modalService: NgbModal,
@@ -36,6 +34,10 @@ export class AssetListComponent implements OnInit {
 
   handleUploadAssetModal(modalRef) {
     this.modalReference = this.modalService.open(modalRef);
+  }
+
+  handleSubmit($event) {
+    console.log($event);
   }
 
   onChangeTab(eventId): void {

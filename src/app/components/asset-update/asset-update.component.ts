@@ -53,8 +53,10 @@ export class AssetUpdateComponent implements OnInit {
     return this.assetForm.valid;
   }
 
-  deleteAsset() {
-    
+  deleteAsset(assetID: string) {
+    return MarketplaceSDK.Assets.Delete(assetID).then(() => {
+      this.onDelete.emit();
+    });
   }
 
   saveChanges(asset) {
