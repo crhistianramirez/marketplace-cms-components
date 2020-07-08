@@ -13,7 +13,7 @@
                             [isNew]="false"
                             [asset]="asset"
                             (onSubmit)="handleSubmit($event)"
-                            (onDelete)="listAssets()"></cms-asset-update>
+                            (onDelete)="listAssets(type)"></cms-asset-update>
         </div>
       </div>
       <div class="no-results" *ngIf="assets && !assets.Items.length">
