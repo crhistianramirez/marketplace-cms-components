@@ -38,7 +38,7 @@ export class AssetManagerComponent implements OnInit {
     );
   }
 
-  setForms() {
+  setForms(): void {
     let assetFormGroup = [];
     this.assets.Items.forEach((asset) => {
       const formGroup = this.formBuilder.group({
@@ -56,7 +56,7 @@ export class AssetManagerComponent implements OnInit {
     });
   }
 
-  addAssetForm() {
+  addAssetForm(): void {
     const newFormGroup = this.formBuilder.group({
       Title: [null, Validators.required],
       Url: [null, null],
@@ -69,7 +69,7 @@ export class AssetManagerComponent implements OnInit {
     this.isNew = true;
   }
 
-  addImage(event, index) {
+  uploadFile(event, index): void {
     const targetForm = this.assetForms.controls['Assets']['controls'][index];
     const reader = new FileReader();
     reader.onload = (e) => {
@@ -80,6 +80,32 @@ export class AssetManagerComponent implements OnInit {
   }
 
   formValid(): boolean {
-    return !this.assetForms.pristine && this.assetForms.valid;
+    console.log(this.assetForms.valid);
+    return true;
+    // return this.assetForms.valid;
+  }
+
+  saveChanges(asset, index) {
+    let updatedAsset = asset.value;
+    if (index == 0 && this.isNew) {
+      this.isNew = false;
+      this.onSubmit.emit({
+        action: 'UploadAsset',
+        asset: updatedAsset
+      });
+      return MarketplaceSDK.Upload.UploadAsset(updatedAsset);
+    } else {
+      this.onSubmit.emit({
+        action: 'Update',
+        asset: updatedAsset
+      });
+      return MarketplaceSDK.Assets.Update(updatedAsset.ID, updatedAsset);
+    }
+  }
+
+  onChangeTab(eventId): void {
+    const tabId = eventId.split('-');
+    this.selectedTab = tabId[tabId.length - 1];
+    this.listAssets(this.selectedTab);
   }
 }
