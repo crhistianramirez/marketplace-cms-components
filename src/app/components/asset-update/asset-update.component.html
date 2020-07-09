@@ -7,6 +7,7 @@
                   class="card-img-top img-fluid flex-shrink-0"
                   [src]="assetForm.controls['Url'].value">
             <div *ngIf="isNew">
+              <small>{{assetForm?.controls['FileName']?.value}}</small>
               <button *ngIf="assetForm?.controls['Url']?.value"
                       type="button"
                       class="btn btn-sm btn-danger"
