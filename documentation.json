@@ -658,10 +658,10 @@
     "classes": [
         {
             "name": "AppPage",
-            "id": "class-AppPage-a0db91bfa3b9914e9048612074084ee6",
+            "id": "class-AppPage-b0dda38f970a6690b77b35dfb293b3ac",
             "file": "e2e/src/app.po.ts",
             "type": "class",
-            "sourceCode": "import { browser, by, element } from 'protractor';\n\nexport class AppPage {\n  navigateTo(): Promise<unknown> {\n    return browser.get(browser.baseUrl) as Promise<unknown>;\n  }\n\n  getTitleText(): Promise<string> {\n    return element(by.css('app-root .content span')).getText() as Promise<string>;\n  }\n}\n",
+            "sourceCode": "import { browser, by, element } from 'protractor';\r\n\r\nexport class AppPage {\r\n  navigateTo(): Promise<unknown> {\r\n    return browser.get(browser.baseUrl) as Promise<unknown>;\r\n  }\r\n\r\n  getTitleText(): Promise<string> {\r\n    return element(by.css('app-root .content span')).getText() as Promise<string>;\r\n  }\r\n}\r\n",
             "properties": [],
             "methods": [
                 {
@@ -750,12 +750,81 @@
                     }
                 ]
             }
+        },
+        {
+            "name": "DragAndDropDirective",
+            "id": "directive-DragAndDropDirective-f589cb1f9a271b14dd5927c30d8a73f5",
+            "file": "src/app/directives/drag-and-drop.directive.ts",
+            "type": "directive",
+            "description": "",
+            "sourceCode": "import {\n  Directive,\n  Output,\n  EventEmitter,\n  HostBinding,\n  HostListener\n} from '@angular/core';\n\n@Directive({\n  selector: '[cmsDragAndDrop]'\n})\nexport class DragAndDropDirective {\n  @HostBinding('class.fileover') fileOver: boolean;\n  @Output() fileDropped = new EventEmitter<any>();\n\n  // Dragover listener\n  @HostListener('dragover', ['$event']) onDragOver(evt) {\n    evt.preventDefault();\n    evt.stopPropagation();\n    this.fileOver = true;\n  }\n\n  // Dragleave listener\n  @HostListener('dragleave', ['$event']) public onDragLeave(evt) {\n    evt.preventDefault();\n    evt.stopPropagation();\n    this.fileOver = false;\n  }\n\n  // Drop listener\n  @HostListener('drop', ['$event']) public ondrop(evt) {\n    evt.preventDefault();\n    evt.stopPropagation();\n    this.fileOver = false;\n    let files = evt.dataTransfer.files;\n    if (files.length > 0) {\n      this.fileDropped.emit(files[0]);\n    }\n  }\n\n}\n",
+            "selector": "[cmsDragAndDrop]",
+            "providers": [],
+            "inputsClass": [],
+            "outputsClass": [
+                {
+                    "name": "fileDropped",
+                    "defaultValue": "new EventEmitter<any>()",
+                    "line": 14,
+                    "type": "EventEmitter"
+                }
+            ],
+            "hostBindings": [
+                {
+                    "name": "class.fileover",
+                    "line": 13,
+                    "type": "boolean"
+                }
+            ],
+            "hostListeners": [
+                {
+                    "name": "dragleave",
+                    "args": [
+                        {
+                            "name": "evt",
+                            "type": ""
+                        }
+                    ],
+                    "argsDecorator": [
+                        "$event"
+                    ],
+                    "line": 24
+                },
+                {
+                    "name": "dragover",
+                    "args": [
+                        {
+                            "name": "evt",
+                            "type": ""
+                        }
+                    ],
+                    "argsDecorator": [
+                        "$event"
+                    ],
+                    "line": 17
+                },
+                {
+                    "name": "drop",
+                    "args": [
+                        {
+                            "name": "evt",
+                            "type": ""
+                        }
+                    ],
+                    "argsDecorator": [
+                        "$event"
+                    ],
+                    "line": 31
+                }
+            ],
+            "propertiesClass": [],
+            "methodsClass": []
         }
     ],
     "components": [
         {
             "name": "AppComponent",
-            "id": "component-AppComponent-5a5cab021e5f33b96aa917442af139e8",
+            "id": "component-AppComponent-c8584fb542ef7e6779cc62031061c072",
             "file": "src/app/app.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -784,7 +853,7 @@
                 },
                 {
                     "name": "editorOptions",
-                    "defaultValue": "{\r\n    ordercloud: {\r\n      marketplaceUrl: 'https://marketplace-middleware-test.azurewebsites.net',\r\n      access_token:\r\n        'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c3IiOiJhbm9uLXRlbXBsYXRlLXVzZXIiLCJjaWQiOiJlOTU1ZDZlYy01OWM4LTQ0NDItOTQ4ZS0xNmNjYzVmZDI3YWUiLCJvcmRlcmlkIjoiWTR5SzNwdUl1MGE3Qk5CV2pjWEVMQSIsInUiOiIxMDIwMjMwIiwidXNydHlwZSI6ImJ1eWVyIiwicm9sZSI6WyJNZUFkZHJlc3NBZG1pbiIsIk1lQWRtaW4iLCJNZUNyZWRpdENhcmRBZG1pbiIsIk1lWHBBZG1pbiIsIlNob3BwZXIiLCJTdXBwbGllclJlYWRlciIsIlN1cHBsaWVyQWRkcmVzc1JlYWRlciIsIlBhc3N3b3JkUmVzZXQiLCJCdXllclJlYWRlciJdLCJpc3MiOiJodHRwczovL2F1dGgub3JkZXJjbG91ZC5pbyIsImF1ZCI6Imh0dHBzOi8vYXBpLm9yZGVyY2xvdWQuaW8iLCJleHAiOjE1OTQ4NDUxNTksIm5iZiI6MTU5NDI0MDM1OX0.lpQBQAYqlssXmxtcHLxck5N6CGxr31ZA71SUqyxxLJE'\r\n    },\r\n    content_css: [\r\n      // 'https://piasstorageprod.azureedge.net/buyerweb/styles.07d24b25eb6a60350a70.css',\r\n      'https://mgrstoragetest.azureedge.net/buyerweb/styles.e94215343d3493186ae1.css',\r\n      'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css',\r\n      'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css'\r\n    ]\r\n  }",
+                    "defaultValue": "{\r\n    ordercloud: {\r\n      marketplaceUrl: 'https://marketplace-middleware-test.azurewebsites.net',\r\n      access_token:\r\n        'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c3IiOiJjcmhpc3RpYW5zdXBwbGllcjQxMTA2IiwiY2lkIjoiN2UwZmQ2MmItOWRkOS00OTM5LTllMGItMjZkODgyZmMzNTA4IiwiaW1wIjoiMTE3NyIsInUiOiIxODEyNjMwIiwidXNydHlwZSI6InN1cHBsaWVyIiwicm9sZSI6WyJCdXllclJlYWRlciIsIk1lQWRtaW4iLCJPcmRlckFkbWluIiwiUGFzc3dvcmRSZXNldCIsIlByaWNlU2NoZWR1bGVBZG1pbiIsIlByaWNlU2NoZWR1bGVSZWFkZXIiLCJQcm9kdWN0QWRtaW4iLCJQcm9kdWN0UmVhZGVyIiwiUHJvbW90aW9uQWRtaW4iLCJQcm9tb3Rpb25SZWFkZXIiLCJTaGlwbWVudEFkbWluIiwiU3VwcGxpZXJBZGRyZXNzUmVhZGVyIiwiU3VwcGxpZXJSZWFkZXIiLCJTdXBwbGllclVzZXJSZWFkZXIiXSwiaXNzIjoiaHR0cHM6Ly9hdXRoLm9yZGVyY2xvdWQuaW8iLCJhdWQiOiJodHRwczovL2FwaS5vcmRlcmNsb3VkLmlvIiwiZXhwIjoxNTk0MjcxNTgyLCJuYmYiOjE1OTQyNDI3ODJ9.x6VOHFri6TjyJ2Q_0eXUq-KeBCvUzLVKIjVHn-LIqHk'\r\n    },\r\n    content_css: [\r\n      // 'https://piasstorageprod.azureedge.net/buyerweb/styles.07d24b25eb6a60350a70.css',\r\n      'https://mgrstoragetest.azureedge.net/buyerweb/styles.e94215343d3493186ae1.css',\r\n      'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css',\r\n      'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css'\r\n    ]\r\n  }",
                     "type": "object",
                     "optional": false,
                     "description": "",
@@ -805,7 +874,7 @@
             "description": "",
             "rawdescription": "",
             "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'app-root',\r\n  templateUrl: './app.component.html',\r\n  styleUrls: ['./app.component.scss']\r\n})\r\nexport class AppComponent {\r\n  constructor() {}\r\n  title = 'marketplace-cms-components';\r\n  buyerSiteUrl = 'https://mgr-buyer-test.ordercloud-qa.com';\r\n  editorOptions = {\r\n    ordercloud: {\r\n      marketplaceUrl: 'https://marketplace-middleware-test.azurewebsites.net',\r\n      access_token:\r\n        'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c3IiOiJhbm9uLXRlbXBsYXRlLXVzZXIiLCJjaWQiOiJlOTU1ZDZlYy01OWM4LTQ0NDItOTQ4ZS0xNmNjYzVmZDI3YWUiLCJvcmRlcmlkIjoiWTR5SzNwdUl1MGE3Qk5CV2pjWEVMQSIsInUiOiIxMDIwMjMwIiwidXNydHlwZSI6ImJ1eWVyIiwicm9sZSI6WyJNZUFkZHJlc3NBZG1pbiIsIk1lQWRtaW4iLCJNZUNyZWRpdENhcmRBZG1pbiIsIk1lWHBBZG1pbiIsIlNob3BwZXIiLCJTdXBwbGllclJlYWRlciIsIlN1cHBsaWVyQWRkcmVzc1JlYWRlciIsIlBhc3N3b3JkUmVzZXQiLCJCdXllclJlYWRlciJdLCJpc3MiOiJodHRwczovL2F1dGgub3JkZXJjbG91ZC5pbyIsImF1ZCI6Imh0dHBzOi8vYXBpLm9yZGVyY2xvdWQuaW8iLCJleHAiOjE1OTQ4NDUxNTksIm5iZiI6MTU5NDI0MDM1OX0.lpQBQAYqlssXmxtcHLxck5N6CGxr31ZA71SUqyxxLJE'\r\n    },\r\n    content_css: [\r\n      // 'https://piasstorageprod.azureedge.net/buyerweb/styles.07d24b25eb6a60350a70.css',\r\n      'https://mgrstoragetest.azureedge.net/buyerweb/styles.e94215343d3493186ae1.css',\r\n      'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css',\r\n      'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css'\r\n    ]\r\n  };\r\n}\r\n",
+            "sourceCode": "import { Component } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'app-root',\r\n  templateUrl: './app.component.html',\r\n  styleUrls: ['./app.component.scss']\r\n})\r\nexport class AppComponent {\r\n  constructor() {}\r\n  title = 'marketplace-cms-components';\r\n  buyerSiteUrl = 'https://mgr-buyer-test.ordercloud-qa.com';\r\n  editorOptions = {\r\n    ordercloud: {\r\n      marketplaceUrl: 'https://marketplace-middleware-test.azurewebsites.net',\r\n      access_token:\r\n        'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c3IiOiJjcmhpc3RpYW5zdXBwbGllcjQxMTA2IiwiY2lkIjoiN2UwZmQ2MmItOWRkOS00OTM5LTllMGItMjZkODgyZmMzNTA4IiwiaW1wIjoiMTE3NyIsInUiOiIxODEyNjMwIiwidXNydHlwZSI6InN1cHBsaWVyIiwicm9sZSI6WyJCdXllclJlYWRlciIsIk1lQWRtaW4iLCJPcmRlckFkbWluIiwiUGFzc3dvcmRSZXNldCIsIlByaWNlU2NoZWR1bGVBZG1pbiIsIlByaWNlU2NoZWR1bGVSZWFkZXIiLCJQcm9kdWN0QWRtaW4iLCJQcm9kdWN0UmVhZGVyIiwiUHJvbW90aW9uQWRtaW4iLCJQcm9tb3Rpb25SZWFkZXIiLCJTaGlwbWVudEFkbWluIiwiU3VwcGxpZXJBZGRyZXNzUmVhZGVyIiwiU3VwcGxpZXJSZWFkZXIiLCJTdXBwbGllclVzZXJSZWFkZXIiXSwiaXNzIjoiaHR0cHM6Ly9hdXRoLm9yZGVyY2xvdWQuaW8iLCJhdWQiOiJodHRwczovL2FwaS5vcmRlcmNsb3VkLmlvIiwiZXhwIjoxNTk0MjcxNTgyLCJuYmYiOjE1OTQyNDI3ODJ9.x6VOHFri6TjyJ2Q_0eXUq-KeBCvUzLVKIjVHn-LIqHk'\r\n    },\r\n    content_css: [\r\n      // 'https://piasstorageprod.azureedge.net/buyerweb/styles.07d24b25eb6a60350a70.css',\r\n      'https://mgrstoragetest.azureedge.net/buyerweb/styles.e94215343d3493186ae1.css',\r\n      'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css',\r\n      'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css'\r\n    ]\r\n  };\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -820,7 +889,182 @@
                 "args": [],
                 "line": 8
             },
-            "templateData": "<div class=\"jumbotron\">\r\n  <div class=\"container\">\r\n    <h1>Page Editor Demonstration</h1>\r\n  </div>\r\n</div>\r\n<div class=\"container\">\r\n  <cms-page-editor\r\n    [renderSiteUrl]=\"buyerSiteUrl\"\r\n    [editorOptions]=\"editorOptions\"\r\n  ></cms-page-editor>\r\n</div>\r\n"
+            "templateData": "<div class=\"jumbotron\">\r\n  <div class=\"container\">\r\n    <h1>Page Editor Demonstration</h1>\r\n  </div>\r\n</div>\r\n<div class=\"container\">\r\n  <cms-page-editor\r\n    [renderSiteUrl]=\"buyerSiteUrl\"\r\n    [editorOptions]=\"editorOptions\"\r\n  ></cms-page-editor>\r\n  <cms-asset-list></cms-asset-list>\r\n</div>\r\n"
+        },
+        {
+            "name": "AssetListComponent",
+            "id": "component-AssetListComponent-0b0f52fcb4ead1d148c0104efb3a2759",
+            "file": "src/app/components/asset-list/asset-list.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "cms-asset-list",
+            "styleUrls": [
+                "./asset-list.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./asset-list.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "assets",
+                    "type": "any",
+                    "optional": false,
+                    "description": "",
+                    "line": 11
+                },
+                {
+                    "name": "assetTypes",
+                    "defaultValue": "['Image', 'Theme', 'Attachment', 'Structured']",
+                    "type": "string[]",
+                    "optional": false,
+                    "description": "",
+                    "line": 13
+                },
+                {
+                    "name": "modalReference",
+                    "type": "NgbModalRef",
+                    "optional": false,
+                    "description": "",
+                    "line": 12
+                },
+                {
+                    "name": "selectedTab",
+                    "defaultValue": "'Image'",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 14
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "handleSubmit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 36
+                },
+                {
+                    "name": "handleUploadAssetModal",
+                    "args": [
+                        {
+                            "name": "modalRef",
+                            "type": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 32,
+                    "jsdoctags": [
+                        {
+                            "name": "modalRef",
+                            "type": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "listAssets",
+                    "args": [
+                        {
+                            "name": "assetType",
+                            "type": "string"
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "any",
+                    "typeParameters": [],
+                    "line": 24,
+                    "jsdoctags": [
+                        {
+                            "name": "assetType",
+                            "type": "string",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 20
+                },
+                {
+                    "name": "onChangeTab",
+                    "args": [
+                        {
+                            "name": "eventId",
+                            "type": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 41,
+                    "jsdoctags": [
+                        {
+                            "name": "eventId",
+                            "type": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "",
+            "type": "component",
+            "sourceCode": "import { Component, OnInit } from '@angular/core';\r\nimport { MarketplaceSDK } from 'marketplace-javascript-sdk';\r\nimport { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';\r\n\r\n@Component({\r\n  selector: 'cms-asset-list',\r\n  templateUrl: './asset-list.component.html',\r\n  styleUrls: ['./asset-list.component.scss']\r\n})\r\nexport class AssetListComponent implements OnInit {\r\n  assets: any;\r\n  modalReference: NgbModalRef;\r\n  assetTypes: string[] = ['Image', 'Theme', 'Attachment', 'Structured'];\r\n  selectedTab: string = 'Image';\r\n\r\n  constructor(\r\n    private modalService: NgbModal,\r\n  ) { }\r\n\r\n  ngOnInit(): void {\r\n    this.listAssets(this.assetTypes[0]);\r\n  }\r\n\r\n  listAssets(assetType: string) {\r\n    return MarketplaceSDK.Assets.List({ filters: { Type: assetType } }).then(\r\n      (assets) => {\r\n        this.assets = assets;\r\n      }\r\n    );\r\n  }\r\n\r\n  handleUploadAssetModal(modalRef) {\r\n    this.modalReference = this.modalService.open(modalRef, {size: 'lg'});\r\n  }\r\n\r\n  handleSubmit() {\r\n    this.modalReference.close();\r\n    this.listAssets(this.selectedTab);\r\n  }\r\n\r\n  onChangeTab(eventId): void {\r\n    this.selectedTab = eventId;\r\n    this.listAssets(this.selectedTab);\r\n  }\r\n}\r\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": ".no-results {\r\n    p {\r\n        text-align: center;\r\n    }\r\n}",
+                    "styleUrl": "./asset-list.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "args": [
+                    {
+                        "name": "modalService",
+                        "type": "NgbModal"
+                    }
+                ],
+                "line": 14,
+                "jsdoctags": [
+                    {
+                        "name": "modalService",
+                        "type": "NgbModal",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "implements": [
+                "OnInit"
+            ],
+            "templateData": "\r\n<h1>Assets</h1>\r\n<ngb-tabset (tabChange)=\"onChangeTab($event.nextId)\">\r\n  <ngb-tab ngbTabContent\r\n            *ngFor=\"let type of assetTypes\"\r\n            title=\"{{type}}s\"\r\n            id=\"{{type}}\">\r\n    <ng-template ngbTabContent>\r\n      <div *ngIf=\"assets && assets.Items.length\">\r\n        <button class=\"btn btn-primary\" (click)=\"handleUploadAssetModal(uploadAssetModal)\">Upload {{type}}</button>\r\n        <div *ngFor=\"let asset of assets.Items\">\r\n          <cms-asset-update [asset]=\"asset\"\r\n                            [assetType]=\"type\"\r\n                            [isNew]=\"false\"\r\n                            (onDelete)=\"listAssets(type)\"></cms-asset-update>\r\n        </div>\r\n      </div>\r\n      <div class=\"no-results\" *ngIf=\"assets && !assets.Items.length\">\r\n        <p>No {{type}}s uploaded</p>\r\n        <button class=\"btn btn-primary\" (click)=\"handleUploadAssetModal(uploadAssetModal)\">Upload {{type}}</button>\r\n      </div>\r\n    </ng-template>\r\n  </ngb-tab>\r\n</ngb-tabset>\r\n<ng-template #uploadAssetModal>\r\n  <cms-asset-upload [assetType]=\"selectedTab\" \r\n                    (cancel)=\"modalReference.dismiss()\"\r\n                    (submit)=\"handleSubmit()\"></cms-asset-upload>\r\n</ng-template>"
         },
         {
             "name": "AssetPickerComponent",
@@ -1017,6 +1261,290 @@
                 "OnDestroy"
             ],
             "templateData": "<div class=\"modal-header\">\r\n    <h4 class=\"modal-title\">Browse Assets</h4>\r\n    <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"modal.dismiss()\">\r\n        <span aria-hidden=\"true\">&times;</span>\r\n    </button>\r\n</div>\r\n<div class=\"modal-body\">\r\n    <form [formGroup]=\"searchForm\">\r\n        <div class=\"form-group\">\r\n            <label for=\"asset-search\" ngbAutofocus class=\"sr-only\">Search for an asset by title</label>\r\n            <input type=\"text\" class=\"form-control\" formControlName=\"search\" id=\"asset-search\"\r\n                placeholder=\"Search for an asset by title\">\r\n        </div>\r\n    </form>\r\n    <div *ngIf=\"!list?.Items?.length && !loading\">\r\n        <div class=\"no-results-well\">\r\n            <p class=\"no-results-well_msg text-center\">\r\n                No Assets were found\r\n            </p>\r\n        </div>\r\n    </div>\r\n    <div class=\"asset-list\" *ngIf=\"list?.Items?.length\">\r\n        <div class=\"asset-item\" *ngFor=\"let asset of list.Items\" (click)=\"modal.close(asset)\">\r\n            <img class=\"asset-item_img\" src=\"{{asset.Url}}\" alt=\"{{asset.title}}\">\r\n        </div>\r\n    </div>\r\n    <div class=\"pagination-container\">\r\n        <ngb-pagination [maxSize]=\"5\" [boundaryLinks]=\"true\" *ngIf=\"list\" [collectionSize]=\"list.Meta.TotalCount\"\r\n            [(pageSize)]=\"list.Meta.PageSize\" [(page)]=\"list.Meta.Page\" aria-label=\"Pagination Buttons\"\r\n            (pageChange)=\"changePage($event)\">\r\n        </ngb-pagination>\r\n    </div>\r\n</div>\r\n<div class=\"modal-footer\">\r\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"modal.dismiss()\">Close</button>\r\n</div>\r\n<ngx-spinner class=\"asset-picker-spinner\" type = \"ball-beat\" bdColor=\"rgba(255, 255, 255, 0.38)\" color=\"#969696\" [fullScreen]=\"false\"></ngx-spinner>"
+        },
+        {
+            "name": "AssetUpdateComponent",
+            "id": "component-AssetUpdateComponent-51ce89a83e59bb7b5ca5013f0ca766a1",
+            "file": "src/app/components/asset-update/asset-update.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "cms-asset-update",
+            "styleUrls": [
+                "./asset-update.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./asset-update.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [
+                {
+                    "name": "asset",
+                    "line": 14,
+                    "type": "Asset"
+                },
+                {
+                    "name": "assetType",
+                    "line": 15,
+                    "type": "any"
+                },
+                {
+                    "name": "isNew",
+                    "line": 16,
+                    "type": "boolean"
+                }
+            ],
+            "outputsClass": [
+                {
+                    "name": "onDelete",
+                    "defaultValue": "new EventEmitter()",
+                    "line": 18,
+                    "type": "EventEmitter"
+                },
+                {
+                    "name": "onSubmit",
+                    "defaultValue": "new EventEmitter()",
+                    "line": 17,
+                    "type": "EventEmitter"
+                }
+            ],
+            "propertiesClass": [
+                {
+                    "name": "assetForm",
+                    "type": "FormGroup",
+                    "optional": false,
+                    "description": "",
+                    "line": 12
+                },
+                {
+                    "name": "fileDropEl",
+                    "type": "ElementRef",
+                    "optional": false,
+                    "description": "",
+                    "line": 11,
+                    "decorators": [
+                        {
+                            "name": "ViewChild",
+                            "stringifiedArguments": "'fileDropRef', {static: false}"
+                        }
+                    ]
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "deleteAsset",
+                    "args": [
+                        {
+                            "name": "assetID",
+                            "type": "string"
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "any",
+                    "typeParameters": [],
+                    "line": 55,
+                    "jsdoctags": [
+                        {
+                            "name": "assetID",
+                            "type": "string",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "deleteFile",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 81
+                },
+                {
+                    "name": "formValid",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "boolean",
+                    "typeParameters": [],
+                    "line": 51
+                },
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 25
+                },
+                {
+                    "name": "saveChanges",
+                    "args": [
+                        {
+                            "name": "asset",
+                            "type": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "any",
+                    "typeParameters": [],
+                    "line": 61,
+                    "jsdoctags": [
+                        {
+                            "name": "asset",
+                            "type": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "setForm",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 29
+                },
+                {
+                    "name": "uploadFile",
+                    "args": [
+                        {
+                            "name": "file",
+                            "type": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 42,
+                    "jsdoctags": [
+                        {
+                            "name": "file",
+                            "type": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "",
+            "type": "component",
+            "sourceCode": "import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';\nimport { MarketplaceSDK, Asset } from 'marketplace-javascript-sdk';\nimport { FormGroup, FormBuilder, Validators } from '@angular/forms';\n\n@Component({\n  selector: 'cms-asset-update',\n  templateUrl: './asset-update.component.html',\n  styleUrls: ['./asset-update.component.scss']\n})\nexport class AssetUpdateComponent implements OnInit {\n  @ViewChild(\"fileDropRef\", { static: false }) fileDropEl: ElementRef;\n  assetForm: FormGroup;\n\n  @Input() asset?: Asset;\n  @Input() assetType?: any;\n  @Input() isNew: boolean;\n  @Output() onSubmit = new EventEmitter();\n  @Output() onDelete = new EventEmitter();\n\n\n  constructor(\n    private formBuilder: FormBuilder,\n  ) { }\n\n  ngOnInit(): void {\n    this.setForm();\n  }\n\n  setForm(): void {\n    const formGroup = {\n      Title: [this.asset ? this.asset.Title : null, Validators.required],\n      Url: [this.asset ? this.asset.Url : null, null],\n      Active: [this.asset ? this.asset.Active : false],\n      ID: [this.asset ? this.asset.ID : null, null],\n      Type: [this.asset ? this.asset.Type : this.assetType],\n      FileName: [this.asset ? this.asset.FileName : null],\n    };\n\n    this.assetForm = this.formBuilder.group(formGroup);\n  }\n\n  uploadFile(file): void {\n    const reader = new FileReader();\n    reader.onload = (e) => {\n      this.assetForm.controls['Url'].setValue(e.target['result']);\n    };\n    reader.readAsDataURL(file);\n    this.assetForm.controls['FileName'].setValue(file.name);\n  }\n\n  formValid(): boolean {\n    return this.assetForm.valid;\n  }\n\n  deleteAsset(assetID: string) {\n    return MarketplaceSDK.Assets.Delete(assetID).then(() => {\n      this.onDelete.emit();\n    });\n  }\n\n  saveChanges(asset) {\n    let updatedAsset = asset.value;\n    if (this.isNew) {\n      return MarketplaceSDK.Upload.UploadAsset(updatedAsset).then(() => {\n        this.isNew = false;\n        this.onSubmit.emit({\n          action: 'UploadAsset',\n          asset: updatedAsset\n        });\n      })\n    } else {\n      return MarketplaceSDK.Assets.Update(updatedAsset.ID, updatedAsset).then(() => {\n        this.onSubmit.emit({\n          action: 'Update',\n          asset: updatedAsset\n        });\n      })\n    }\n  }\n\n  deleteFile() {\n    this.assetForm.controls['Url'].setValue(null);\n    this.assetForm.controls['FileName'].setValue(null);\n  }\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": ".dropzone {\r\n    padding: 2rem;\r\n    text-align: center;\r\n    border: dashed 1px #979797;\r\n    position: relative;\r\n    margin: 0 auto;\r\n\r\n    input {\r\n        opacity: 0;\r\n        position: absolute;\r\n        width: 100%;\r\n        height: 100%;\r\n        top: 0;\r\n        left: 0;\r\n    }\r\n\r\n    label {\r\n        color: white;\r\n        width: 183px;\r\n        height: 44px;\r\n        border-radius: 21.5px;\r\n        background-color: #979797;\r\n        padding: 8px 16px;\r\n    }\r\n}\r\n\r\n.fileover {\r\n    background-color: rgb(187, 255, 148);\r\n  }",
+                    "styleUrl": "./asset-update.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "args": [
+                    {
+                        "name": "formBuilder",
+                        "type": "FormBuilder"
+                    }
+                ],
+                "line": 18,
+                "jsdoctags": [
+                    {
+                        "name": "formBuilder",
+                        "type": "FormBuilder",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "implements": [
+                "OnInit"
+            ],
+            "templateData": "<div class=\"tab-container\">\n    <form *ngIf=\"assetForm\"\n          [formGroup]=\"assetForm\">\n        <div class=\"row\">\n          <div class=\"form-group col-sm-4\">\n            <img *ngIf=\"assetForm?.controls['Url']?.value && assetType == 'Image'\"\n                  class=\"card-img-top img-fluid flex-shrink-0\"\n                  [src]=\"assetForm.controls['Url'].value\">\n            <div *ngIf=\"isNew\">\n              <small>{{assetForm?.controls['FileName']?.value}}</small>\n              <button *ngIf=\"assetForm?.controls['Url']?.value\"\n                      type=\"button\"\n                      class=\"btn btn-sm btn-danger\"\n                      (click)=\"deleteFile()\">Remove {{assetType}}</button>\n              <div *ngIf=\"!assetForm?.controls['Url']?.value\"\n                   class=\"dropzone\" \n                   cmsDragAndDrop\n                   (fileDropped)=\"uploadFile($event)\">\n                <input type=\"file\"\n                       #fileDropRef\n                       id=\"fileDropRef\"\n                       (change)=\"uploadFile($event.target.files[0])\"/>\n                <p>Drage and drop {{assetType}} here</p>\n                <p>or</p>\n                <label for=\"fileDropRef\">Browse for file</label>\n              </div>\n            </div>           \n            <input [hidden]=\"true\"\n                    class=\"form-control\"\n                    id=\"{{asset ? asset.ID : 'new'}}\"\n                    type=\"file\"\n                    accept=\"image/*,.pdf\"\n                    (change)=\"uploadFile($event.target.files[0])\"\n                    placeholder=\"Upload file\" />\n            <button *ngIf=\"!isNew\"\n                    type=\"button\"\n                    class=\"btn btn-default\">\n              <label class=\"mb-0\"\n                      for=\"{{asset ? asset.ID : 'new'}}\">\n                <small>\n                  {{assetForm.controls['Url'] && assetForm.controls['Url'].value ? 'Replace' : 'Add'}}\n                  <span class=\"d-none d-sm-block\">{{assetType}}</span>\n                </small>\n              </label>\n            </button>\n          </div>\n          <div class=\"form-group col-sm-8\">\n            <label for=\"Title\">Title</label>\n            <input type=\"text\"\n                    formControlName=\"Title\"\n                    class=\"form-control\"\n                    id=\"Title\"\n                    placeholder=\"Title\"\n                    autofocus=\"true\"\n                    pattern=\"([A-Za-z0-9\\-\\_]+)\"\n                    autocomplete=\"off\" />\n            <label for=\"ID\">ID</label>\n            <input type=\"text\"\n                    formControlName=\"ID\"\n                    class=\"form-control\"\n                    id=\"ID\"\n                    placeholder=\"ID\"\n                    autofocus=\"true\"\n                    pattern=\"([A-Za-z0-9\\-\\_]+)\"\n                    autocomplete=\"off\" />\n            <label for=\"Url\">Url</label>\n            <input type=\"text\"\n                    formControlName=\"Url\"\n                    class=\"form-control\"\n                    id=\"Url\"\n                    placeholder=\"Url\"\n                    autofocus=\"true\"\n                    autocomplete=\"off\" />\n            <div class=\"checkbox\">\n              <label for=\"{{asset ? 'Active_' + asset.ID : 'newActive'}}\">\n                <input formControlName=\"Active\"\n                        type=\"checkbox\"\n                        id=\"{{asset ? 'Active_' + asset.ID : 'newActive'}}\">\n                Active\n              </label>\n            </div>\n            <button class=\"btn btn-sm btn-primary\"\n                    [disabled]=\"!formValid()\"\n                    (click)=\"saveChanges(assetForm)\">{{ isNew ? 'Create ' + assetType : 'Save Changes'}}</button>\n            <button *ngIf=\"!isNew\"\n                    class=\"btn btn-sm btn-danger\"\n                    (click)=\"deleteAsset(asset.ID)\">Delete {{assetType}}</button>\n          </div>\n        </div>\n    </form>\n  </div>"
+        },
+        {
+            "name": "AssetUploadComponent",
+            "id": "component-AssetUploadComponent-250930c6a206c88a193a82e4dd608e07",
+            "file": "src/app/components/asset-upload/asset-upload.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "cms-asset-upload",
+            "styleUrls": [
+                "./asset-upload.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./asset-upload.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [
+                {
+                    "name": "assetType",
+                    "line": 9
+                }
+            ],
+            "outputsClass": [
+                {
+                    "name": "cancel",
+                    "defaultValue": "new EventEmitter()",
+                    "line": 10,
+                    "type": "EventEmitter"
+                },
+                {
+                    "name": "submit",
+                    "defaultValue": "new EventEmitter()",
+                    "line": 11,
+                    "type": "EventEmitter"
+                }
+            ],
+            "propertiesClass": [],
+            "methodsClass": [
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 15
+                }
+            ],
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "",
+            "type": "component",
+            "sourceCode": "import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';\n\n@Component({\n  selector: 'cms-asset-upload',\n  templateUrl: './asset-upload.component.html',\n  styleUrls: ['./asset-upload.component.scss']\n})\nexport class AssetUploadComponent implements OnInit {\n  @Input() assetType;\n  @Output() cancel = new EventEmitter();\n  @Output() submit = new EventEmitter();\n\n  constructor() { }\n\n  ngOnInit(): void {\n  }\n\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "",
+                    "styleUrl": "./asset-upload.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "args": [],
+                "line": 11
+            },
+            "implements": [
+                "OnInit"
+            ],
+            "templateData": "<div class=\"modal-content\">\n    <div class=\"modal-body\">\n        <h2>New {{assetType}}</h2>\n        <cms-asset-update [assetType]=\"assetType\" \n        [isNew]=\"true\"\n        (onSubmit)=\"submit.emit($event)\"></cms-asset-update>\n    </div>\n    <div class=\"modal-footer\">\n        <button class=\"btn btn-outline-grey\" (click)=\"cancel.emit()\">\n            Cancel\n        </button>\n    </div>\n</div>"
         },
         {
             "name": "CarouselEditorComponent",
@@ -2060,7 +2588,7 @@
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": ".section-picker_container {\r\n  background: #f2f2f2;\r\n}\r\n\r\n.section-picker_list {\r\n  width: 100%;\r\n  overflow: hidden;\r\n}\r\n\r\n.section-picker_body {\r\n  height: calc(100vh - (3.5rem + 150px));\r\n  overflow-y: auto;\r\n}\r\n",
+                    "data": ".section-picker_container {\r\n  background: #f2f2f2;\r\n}\r\n\r\n.section-picker_list {\r\n  width: 100%;\r\n  overflow: hidden;\r\n}\r\n",
                     "styleUrl": "./section-picker.component.scss"
                 }
             ],
@@ -2099,7 +2627,7 @@
             "implements": [
                 "AfterViewChecked"
             ],
-            "templateData": "<div class=\"modal-header\">\r\n  <h4 class=\"modal-title\">Section Template Library</h4>\r\n  <button\r\n    type=\"button\"\r\n    class=\"close\"\r\n    aria-label=\"Close\"\r\n    (click)=\"modal.dismiss('Cross click')\"\r\n  >\r\n    <span aria-hidden=\"true\">&times;</span>\r\n  </button>\r\n</div>\r\n<div class=\"modal-body py-0 section-picker_body\">\r\n  <div class=\"row\">\r\n    <div class=\"col-sm-3\"></div>\r\n    <div class=\"col-sm-9 section-picker_container py-3\">\r\n      <div #list class=\"section-picker_list\">\r\n        <div *ngFor=\"let template of sectionTemplates; index as i\">\r\n          <cms-section-template-renderer\r\n            [html]=\"template\"\r\n            [selected]=\"i === selectedTemplateIndex\"\r\n            (click)=\"handleSelectTemplate(i)\"\r\n            [previewWidth]=\"previewWidth\"\r\n            [previewTransformRatio]=\"previewTransformRatio\"\r\n            [remoteCss]=\"data.remoteCss\"\r\n          ></cms-section-template-renderer>\r\n\r\n          <hr *ngIf=\"i < sectionTemplates.length - 1\" />\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n<div class=\"modal-footer\">\r\n  <button type=\"button\" class=\"btn btn-primary\" (click)=\"submit()\">\r\n    Add Section\r\n  </button>\r\n</div>\r\n"
+            "templateData": "<div class=\"modal-header\">\r\n  <h4 class=\"modal-title\">Section Template Library</h4>\r\n  <button\r\n    type=\"button\"\r\n    class=\"close\"\r\n    aria-label=\"Close\"\r\n    (click)=\"modal.dismiss('Cross click')\"\r\n  >\r\n    <span aria-hidden=\"true\">&times;</span>\r\n  </button>\r\n</div>\r\n<div class=\"modal-body py-0\">\r\n  <div class=\"row\">\r\n    <div class=\"col-sm-3\"></div>\r\n    <div class=\"col-sm-9 section-picker_container py-3\">\r\n      <div #list class=\"section-picker_list\">\r\n        <div *ngFor=\"let template of sectionTemplates; index as i\">\r\n          <cms-section-template-renderer\r\n            [html]=\"template\"\r\n            [selected]=\"i === selectedTemplateIndex\"\r\n            (click)=\"handleSelectTemplate(i)\"\r\n            [previewWidth]=\"previewWidth\"\r\n            [previewTransformRatio]=\"previewTransformRatio\"\r\n            [remoteCss]=\"data.remoteCss\"\r\n          ></cms-section-template-renderer>\r\n\r\n          <hr *ngIf=\"i < sectionTemplates.length - 1\" />\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n<div class=\"modal-footer\">\r\n  <button type=\"button\" class=\"btn btn-primary\" (click)=\"submit()\">\r\n    Add Section\r\n  </button>\r\n</div>\r\n"
         },
         {
             "name": "SectionTemplateRendererComponent",
@@ -2338,13 +2866,25 @@
                             "name": "AppComponent"
                         },
                         {
+                            "name": "AssetListComponent"
+                        },
+                        {
                             "name": "AssetPickerComponent"
+                        },
+                        {
+                            "name": "AssetUpdateComponent"
+                        },
+                        {
+                            "name": "AssetUploadComponent"
                         },
                         {
                             "name": "CarouselEditorComponent"
                         },
                         {
                             "name": "ConfirmModalComponent"
+                        },
+                        {
+                            "name": "DragAndDropDirective"
                         },
                         {
                             "name": "HtmlEditorComponent"
@@ -2392,12 +2932,12 @@
     "miscellaneous": {
         "variables": [
             {
-                "name": "BasicExample",
+                "name": "AssetManagement",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "src/storybook/page-editor.stories.ts",
                 "type": "",
-                "defaultValue": "() => ({\r\n  component: PageEditorComponent,\r\n  props: {\r\n    ocToken: '',\r\n    editorOptions: {\r\n      ordercloud: {\r\n        marketplaceUrl: 'https://marketplace-middleware-test.azurewebsites.net',\r\n        access_token:\r\n          'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c3IiOiJhbm9uLXRlbXBsYXRlLXVzZXIiLCJjaWQiOiJlOTU1ZDZlYy01OWM4LTQ0NDItOTQ4ZS0xNmNjYzVmZDI3YWUiLCJvcmRlcmlkIjoiWTR5SzNwdUl1MGE3Qk5CV2pjWEVMQSIsInUiOiIxMDIwMjMwIiwidXNydHlwZSI6ImJ1eWVyIiwicm9sZSI6WyJNZUFkZHJlc3NBZG1pbiIsIk1lQWRtaW4iLCJNZUNyZWRpdENhcmRBZG1pbiIsIk1lWHBBZG1pbiIsIlNob3BwZXIiLCJTdXBwbGllclJlYWRlciIsIlN1cHBsaWVyQWRkcmVzc1JlYWRlciIsIlBhc3N3b3JkUmVzZXQiLCJCdXllclJlYWRlciJdLCJpc3MiOiJodHRwczovL2F1dGgub3JkZXJjbG91ZC5pbyIsImF1ZCI6Imh0dHBzOi8vYXBpLm9yZGVyY2xvdWQuaW8iLCJleHAiOjE1OTQ4NDUxNTksIm5iZiI6MTU5NDI0MDM1OX0.lpQBQAYqlssXmxtcHLxck5N6CGxr31ZA71SUqyxxLJE'\r\n      },\r\n      content_css: [\r\n        // 'https://piasstorageprod.azureedge.net/buyerweb/styles.07d24b25eb6a60350a70.css',\r\n        'https://mgrstoragetest.azureedge.net/buyerweb/styles.e94215343d3493186ae1.css',\r\n        'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css',\r\n        'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css'\r\n      ]\r\n    }\r\n  },\r\n  \r\n})"
+                "defaultValue": "() => ({\r\n  component: AssetListComponent,\r\n  template: `<div class=\"jumbotron\">\r\n  <div class=\"container\">\r\n    <h1>Page Editor Demonstration</h1>\r\n  </div>\r\n</div>\r\n<div class=\"container\">\r\n  <cms-asset-list></cms-asset-list>\r\n</div>\r\n`,\r\n  props: {\r\n    ocToken: '',\r\n    editorOptions: {\r\n      ordercloud: {\r\n        marketplaceUrl: 'https://marketplace-middleware-test.azurewebsites.net',\r\n        access_token:\r\n          'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c3IiOiJhbm9uLXRlbXBsYXRlLXVzZXIiLCJjaWQiOiJlOTU1ZDZlYy01OWM4LTQ0NDItOTQ4ZS0xNmNjYzVmZDI3YWUiLCJvcmRlcmlkIjoiWTR5SzNwdUl1MGE3Qk5CV2pjWEVMQSIsInUiOiIxMDIwMjMwIiwidXNydHlwZSI6ImJ1eWVyIiwicm9sZSI6WyJNZUFkZHJlc3NBZG1pbiIsIk1lQWRtaW4iLCJNZUNyZWRpdENhcmRBZG1pbiIsIk1lWHBBZG1pbiIsIlNob3BwZXIiLCJTdXBwbGllclJlYWRlciIsIlN1cHBsaWVyQWRkcmVzc1JlYWRlciIsIlBhc3N3b3JkUmVzZXQiLCJCdXllclJlYWRlciJdLCJpc3MiOiJodHRwczovL2F1dGgub3JkZXJjbG91ZC5pbyIsImF1ZCI6Imh0dHBzOi8vYXBpLm9yZGVyY2xvdWQuaW8iLCJleHAiOjE1OTQ4NDUxNTksIm5iZiI6MTU5NDI0MDM1OX0.lpQBQAYqlssXmxtcHLxck5N6CGxr31ZA71SUqyxxLJE'\r\n      },\r\n      content_css: [\r\n        // 'https://piasstorageprod.azureedge.net/buyerweb/styles.07d24b25eb6a60350a70.css',\r\n        'https://mgrstoragetest.azureedge.net/buyerweb/styles.e94215343d3493186ae1.css',\r\n        'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css',\r\n        'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css'\r\n      ]\r\n    }\r\n  },\r\n})"
             },
             {
                 "name": "colMarkup",
@@ -2429,7 +2969,7 @@
                 "subtype": "variable",
                 "file": "src/environments/environment.prod.ts",
                 "type": "object",
-                "defaultValue": "{\n  production: true\n}"
+                "defaultValue": "{\r\n  production: true\r\n}"
             },
             {
                 "name": "environment",
@@ -2437,7 +2977,7 @@
                 "subtype": "variable",
                 "file": "src/environments/environment.ts",
                 "type": "object",
-                "defaultValue": "{\n  production: false\n}"
+                "defaultValue": "{\r\n  production: false\r\n}"
             },
             {
                 "name": "fetch",
@@ -2445,6 +2985,14 @@
                 "subtype": "variable",
                 "file": "plugin/src/components/InsertProduct/InsertProduct.ts",
                 "type": "any"
+            },
+            {
+                "name": "FullExample",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/storybook/page-editor.stories.ts",
+                "type": "",
+                "defaultValue": "() => ({\r\n  component: PageEditorComponent,\r\n  template: `<div class=\"jumbotron\">\r\n  <div class=\"container\">\r\n    <h1>Page Editor Demonstration</h1>\r\n  </div>\r\n</div>\r\n<div class=\"container\">\r\n  <cms-page-editor\r\n    [renderSiteUrl]=\"buyerSiteUrl\"\r\n    [editorOptions]=\"editorOptions\"\r\n  ></cms-page-editor>\r\n</div>\r\n`,\r\n  props: {\r\n    ocToken: '',\r\n    editorOptions: {\r\n      ordercloud: {\r\n        marketplaceUrl: 'https://marketplace-middleware-test.azurewebsites.net',\r\n        access_token:\r\n          'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c3IiOiJhbm9uLXRlbXBsYXRlLXVzZXIiLCJjaWQiOiJlOTU1ZDZlYy01OWM4LTQ0NDItOTQ4ZS0xNmNjYzVmZDI3YWUiLCJvcmRlcmlkIjoiWTR5SzNwdUl1MGE3Qk5CV2pjWEVMQSIsInUiOiIxMDIwMjMwIiwidXNydHlwZSI6ImJ1eWVyIiwicm9sZSI6WyJNZUFkZHJlc3NBZG1pbiIsIk1lQWRtaW4iLCJNZUNyZWRpdENhcmRBZG1pbiIsIk1lWHBBZG1pbiIsIlNob3BwZXIiLCJTdXBwbGllclJlYWRlciIsIlN1cHBsaWVyQWRkcmVzc1JlYWRlciIsIlBhc3N3b3JkUmVzZXQiLCJCdXllclJlYWRlciJdLCJpc3MiOiJodHRwczovL2F1dGgub3JkZXJjbG91ZC5pbyIsImF1ZCI6Imh0dHBzOi8vYXBpLm9yZGVyY2xvdWQuaW8iLCJleHAiOjE1OTQ4NDUxNTksIm5iZiI6MTU5NDI0MDM1OX0.lpQBQAYqlssXmxtcHLxck5N6CGxr31ZA71SUqyxxLJE'\r\n      },\r\n      content_css: [\r\n        // 'https://piasstorageprod.azureedge.net/buyerweb/styles.07d24b25eb6a60350a70.css',\r\n        'https://mgrstoragetest.azureedge.net/buyerweb/styles.e94215343d3493186ae1.css',\r\n        'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css',\r\n        'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css'\r\n      ]\r\n    }\r\n  },\r\n  \r\n})"
             },
             {
                 "name": "isWidgetType",
@@ -2513,14 +3061,14 @@
                 "name": "tinymce",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "plugin/src/index.ts",
+                "file": "plugin/src/components/InsertRow/InsertRow.ts",
                 "type": "any"
             },
             {
                 "name": "tinymce",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "plugin/src/components/InsertRow/InsertRow.ts",
+                "file": "plugin/src/index.ts",
                 "type": "any"
             }
         ],
@@ -2567,12 +3115,20 @@
         "groupedVariables": {
             "src/storybook/page-editor.stories.ts": [
                 {
-                    "name": "BasicExample",
+                    "name": "AssetManagement",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "src/storybook/page-editor.stories.ts",
                     "type": "",
-                    "defaultValue": "() => ({\r\n  component: PageEditorComponent,\r\n  props: {\r\n    ocToken: '',\r\n    editorOptions: {\r\n      ordercloud: {\r\n        marketplaceUrl: 'https://marketplace-middleware-test.azurewebsites.net',\r\n        access_token:\r\n          'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c3IiOiJhbm9uLXRlbXBsYXRlLXVzZXIiLCJjaWQiOiJlOTU1ZDZlYy01OWM4LTQ0NDItOTQ4ZS0xNmNjYzVmZDI3YWUiLCJvcmRlcmlkIjoiWTR5SzNwdUl1MGE3Qk5CV2pjWEVMQSIsInUiOiIxMDIwMjMwIiwidXNydHlwZSI6ImJ1eWVyIiwicm9sZSI6WyJNZUFkZHJlc3NBZG1pbiIsIk1lQWRtaW4iLCJNZUNyZWRpdENhcmRBZG1pbiIsIk1lWHBBZG1pbiIsIlNob3BwZXIiLCJTdXBwbGllclJlYWRlciIsIlN1cHBsaWVyQWRkcmVzc1JlYWRlciIsIlBhc3N3b3JkUmVzZXQiLCJCdXllclJlYWRlciJdLCJpc3MiOiJodHRwczovL2F1dGgub3JkZXJjbG91ZC5pbyIsImF1ZCI6Imh0dHBzOi8vYXBpLm9yZGVyY2xvdWQuaW8iLCJleHAiOjE1OTQ4NDUxNTksIm5iZiI6MTU5NDI0MDM1OX0.lpQBQAYqlssXmxtcHLxck5N6CGxr31ZA71SUqyxxLJE'\r\n      },\r\n      content_css: [\r\n        // 'https://piasstorageprod.azureedge.net/buyerweb/styles.07d24b25eb6a60350a70.css',\r\n        'https://mgrstoragetest.azureedge.net/buyerweb/styles.e94215343d3493186ae1.css',\r\n        'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css',\r\n        'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css'\r\n      ]\r\n    }\r\n  },\r\n  \r\n})"
+                    "defaultValue": "() => ({\r\n  component: AssetListComponent,\r\n  template: `<div class=\"jumbotron\">\r\n  <div class=\"container\">\r\n    <h1>Page Editor Demonstration</h1>\r\n  </div>\r\n</div>\r\n<div class=\"container\">\r\n  <cms-asset-list></cms-asset-list>\r\n</div>\r\n`,\r\n  props: {\r\n    ocToken: '',\r\n    editorOptions: {\r\n      ordercloud: {\r\n        marketplaceUrl: 'https://marketplace-middleware-test.azurewebsites.net',\r\n        access_token:\r\n          'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c3IiOiJhbm9uLXRlbXBsYXRlLXVzZXIiLCJjaWQiOiJlOTU1ZDZlYy01OWM4LTQ0NDItOTQ4ZS0xNmNjYzVmZDI3YWUiLCJvcmRlcmlkIjoiWTR5SzNwdUl1MGE3Qk5CV2pjWEVMQSIsInUiOiIxMDIwMjMwIiwidXNydHlwZSI6ImJ1eWVyIiwicm9sZSI6WyJNZUFkZHJlc3NBZG1pbiIsIk1lQWRtaW4iLCJNZUNyZWRpdENhcmRBZG1pbiIsIk1lWHBBZG1pbiIsIlNob3BwZXIiLCJTdXBwbGllclJlYWRlciIsIlN1cHBsaWVyQWRkcmVzc1JlYWRlciIsIlBhc3N3b3JkUmVzZXQiLCJCdXllclJlYWRlciJdLCJpc3MiOiJodHRwczovL2F1dGgub3JkZXJjbG91ZC5pbyIsImF1ZCI6Imh0dHBzOi8vYXBpLm9yZGVyY2xvdWQuaW8iLCJleHAiOjE1OTQ4NDUxNTksIm5iZiI6MTU5NDI0MDM1OX0.lpQBQAYqlssXmxtcHLxck5N6CGxr31ZA71SUqyxxLJE'\r\n      },\r\n      content_css: [\r\n        // 'https://piasstorageprod.azureedge.net/buyerweb/styles.07d24b25eb6a60350a70.css',\r\n        'https://mgrstoragetest.azureedge.net/buyerweb/styles.e94215343d3493186ae1.css',\r\n        'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css',\r\n        'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css'\r\n      ]\r\n    }\r\n  },\r\n})"
+                },
+                {
+                    "name": "FullExample",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/storybook/page-editor.stories.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\r\n  component: PageEditorComponent,\r\n  template: `<div class=\"jumbotron\">\r\n  <div class=\"container\">\r\n    <h1>Page Editor Demonstration</h1>\r\n  </div>\r\n</div>\r\n<div class=\"container\">\r\n  <cms-page-editor\r\n    [renderSiteUrl]=\"buyerSiteUrl\"\r\n    [editorOptions]=\"editorOptions\"\r\n  ></cms-page-editor>\r\n</div>\r\n`,\r\n  props: {\r\n    ocToken: '',\r\n    editorOptions: {\r\n      ordercloud: {\r\n        marketplaceUrl: 'https://marketplace-middleware-test.azurewebsites.net',\r\n        access_token:\r\n          'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c3IiOiJhbm9uLXRlbXBsYXRlLXVzZXIiLCJjaWQiOiJlOTU1ZDZlYy01OWM4LTQ0NDItOTQ4ZS0xNmNjYzVmZDI3YWUiLCJvcmRlcmlkIjoiWTR5SzNwdUl1MGE3Qk5CV2pjWEVMQSIsInUiOiIxMDIwMjMwIiwidXNydHlwZSI6ImJ1eWVyIiwicm9sZSI6WyJNZUFkZHJlc3NBZG1pbiIsIk1lQWRtaW4iLCJNZUNyZWRpdENhcmRBZG1pbiIsIk1lWHBBZG1pbiIsIlNob3BwZXIiLCJTdXBwbGllclJlYWRlciIsIlN1cHBsaWVyQWRkcmVzc1JlYWRlciIsIlBhc3N3b3JkUmVzZXQiLCJCdXllclJlYWRlciJdLCJpc3MiOiJodHRwczovL2F1dGgub3JkZXJjbG91ZC5pbyIsImF1ZCI6Imh0dHBzOi8vYXBpLm9yZGVyY2xvdWQuaW8iLCJleHAiOjE1OTQ4NDUxNTksIm5iZiI6MTU5NDI0MDM1OX0.lpQBQAYqlssXmxtcHLxck5N6CGxr31ZA71SUqyxxLJE'\r\n      },\r\n      content_css: [\r\n        // 'https://piasstorageprod.azureedge.net/buyerweb/styles.07d24b25eb6a60350a70.css',\r\n        'https://mgrstoragetest.azureedge.net/buyerweb/styles.e94215343d3493186ae1.css',\r\n        'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css',\r\n        'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css'\r\n      ]\r\n    }\r\n  },\r\n  \r\n})"
                 }
             ],
             "plugin/src/components/InsertRow/InsertRow.ts": [
@@ -2634,7 +3190,7 @@
                     "subtype": "variable",
                     "file": "src/environments/environment.prod.ts",
                     "type": "object",
-                    "defaultValue": "{\n  production: true\n}"
+                    "defaultValue": "{\r\n  production: true\r\n}"
                 }
             ],
             "src/environments/environment.ts": [
@@ -2644,7 +3200,7 @@
                     "subtype": "variable",
                     "file": "src/environments/environment.ts",
                     "type": "object",
-                    "defaultValue": "{\n  production: false\n}"
+                    "defaultValue": "{\r\n  production: false\r\n}"
                 }
             ],
             "plugin/src/components/InsertProduct/InsertProduct.ts": [
@@ -2897,12 +3453,39 @@
                 "status": "low"
             },
             {
+                "filePath": "src/app/components/asset-list/asset-list.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "AssetListComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/11",
+                "status": "low"
+            },
+            {
                 "filePath": "src/app/components/asset-picker/asset-picker.component.ts",
                 "type": "component",
                 "linktype": "component",
                 "name": "AssetPickerComponent",
                 "coveragePercent": 0,
                 "coverageCount": "0/14",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/components/asset-update/asset-update.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "AssetUpdateComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/16",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/components/asset-upload/asset-upload.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "AssetUploadComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/6",
                 "status": "low"
             },
             {
@@ -2985,6 +3568,15 @@
                 "name": "BgColorDirective",
                 "coveragePercent": 0,
                 "coverageCount": "0/5",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/directives/drag-and-drop.directive.ts",
+                "type": "directive",
+                "linktype": "directive",
+                "name": "DragAndDropDirective",
+                "coveragePercent": 0,
+                "coverageCount": "0/6",
                 "status": "low"
             },
             {
@@ -3165,7 +3757,17 @@
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
-                "name": "BasicExample",
+                "name": "AssetManagement",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/storybook/page-editor.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "FullExample",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
