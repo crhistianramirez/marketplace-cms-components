@@ -22,6 +22,7 @@ import { AssetListComponent } from './components/asset-list/asset-list.component
 import { AssetUpdateComponent } from './components/asset-update/asset-update.component';
 import { AssetUploadComponent } from './components/asset-upload/asset-upload.component';
 import { DragAndDropDirective } from './directives/drag-and-drop.directive';
+import { SectionDateSettingsComponent } from './components/section-date-settings/section-date-settings.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { DragAndDropDirective } from './directives/drag-and-drop.directive';
     AssetListComponent,
     AssetUpdateComponent,
     AssetUploadComponent,
-    DragAndDropDirective
+    DragAndDropDirective,
+    SectionDateSettingsComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +58,8 @@ import { DragAndDropDirective } from './directives/drag-and-drop.directive';
     ConfirmModalComponent,
     AssetPickerComponent,
     CarouselEditorComponent,
-    SectionPickerComponent
+    SectionPickerComponent,
+    SectionDateSettingsComponent
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
