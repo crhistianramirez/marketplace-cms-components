@@ -1,6 +1,9 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { MarketplaceSDK, Asset } from 'marketplace-javascript-sdk';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import {
+  faUpload
+} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'cms-asset-update',
@@ -8,7 +11,9 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./asset-update.component.scss']
 })
 export class AssetUpdateComponent implements OnInit {
+  @ViewChild("fileDropRef", { static: false }) fileDropEl: ElementRef;
   assetForm: FormGroup;
+  faUpload = faUpload;
 
   @Input() asset?: Asset;
   @Input() assetType: any;
@@ -38,13 +43,13 @@ export class AssetUpdateComponent implements OnInit {
     this.assetForm = this.formBuilder.group(formGroup);
   }
 
-  uploadFile(event): void {
+  uploadFile(file): void {
     const reader = new FileReader();
     reader.onload = (e) => {
       this.assetForm.controls['Url'].setValue(e.target['result']);
     };
-    reader.readAsDataURL(event.target.files[0]);
-    this.assetForm.controls['FileName'].setValue(event.target.files[0].name);
+    reader.readAsDataURL(file);
+    this.assetForm.controls['FileName'].setValue(file.name);
   }
 
   formValid(): boolean {
@@ -77,4 +82,8 @@ export class AssetUpdateComponent implements OnInit {
     }
   }
 
+  deleteFile() {
+    this.assetForm.controls['Url'].setValue(null);
+    this.assetForm.controls['FileName'].setValue(null);
+  }
 }

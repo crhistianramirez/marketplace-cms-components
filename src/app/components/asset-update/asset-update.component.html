@@ -3,17 +3,38 @@
           [formGroup]="assetForm">
         <div class="row">
           <div class="form-group col-sm-4">
-            <img *ngIf="assetForm.controls['Url'] && assetForm.controls['Url'].value && assetType == 'Image'"
+            <img *ngIf="assetForm?.controls['Url']?.value && assetType == 'Image'"
                   class="card-img-top img-fluid flex-shrink-0"
                   [src]="assetForm.controls['Url'].value">
+            <div *ngIf="isNew">
+              <button *ngIf="assetForm?.controls['Url']?.value"
+                      type="button"
+                      class="btn btn-sm btn-danger"
+                      (click)="deleteFile()">Remove {{assetType}}</button>
+              <div *ngIf="!assetForm?.controls['Url']?.value"
+                   class="dropzone" 
+                   cmsDragAndDrop
+                   (fileDropped)="uploadFile($event)">
+                <input type="file"
+                       #fileDropRef
+                       id="fileDropRef"
+                       (change)="uploadFile($event.target.files[0])"/>
+                <fa-icon aria-hidden="true"
+                        [icon]="faUpload"></fa-icon>
+                <p>Drage and drop {{assetType}} here</p>
+                <p>or</p>
+                <label for="fileDropRef">Browse for file</label>
+              </div>
+            </div>           
             <input [hidden]="true"
                     class="form-control"
                     id="{{asset ? asset.ID : 'new'}}"
                     type="file"
                     accept="image/*,.pdf"
-                    (change)="uploadFile($event)"
+                    (change)="uploadFile($event.target.files[0])"
                     placeholder="Upload file" />
-            <button type="button"
+            <button *ngIf="!isNew"
+                    type="button"
                     class="btn btn-default">
               <label class="mb-0"
                       for="{{asset ? asset.ID : 'new'}}">
