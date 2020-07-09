@@ -21,6 +21,7 @@ import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 import { AssetListComponent } from './components/asset-list/asset-list.component';
 import { AssetUpdateComponent } from './components/asset-update/asset-update.component';
 import { AssetUploadComponent } from './components/asset-upload/asset-upload.component';
+import { DragAndDropDirective } from './directives/drag-and-drop.directive';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { AssetUploadComponent } from './components/asset-upload/asset-upload.com
     SafeHtmlPipe,
     AssetListComponent,
     AssetUpdateComponent,
-    AssetUploadComponent
+    AssetUploadComponent,
+    DragAndDropDirective
   ],
   imports: [
     BrowserModule,
