@@ -30,7 +30,7 @@ export class AssetListComponent implements OnInit {
   }
 
   handleUploadAssetModal(modalRef) {
-    this.modalReference = this.modalService.open(modalRef);
+    this.modalReference = this.modalService.open(modalRef, {size: 'lg'});
   }
 
   handleSubmit($event) {
