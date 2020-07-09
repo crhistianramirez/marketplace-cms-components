@@ -33,8 +33,9 @@ export class AssetListComponent implements OnInit {
     this.modalReference = this.modalService.open(modalRef, {size: 'lg'});
   }
 
-  handleSubmit($event) {
-    console.log($event);
+  handleSubmit() {
+    this.modalReference.close();
+    this.listAssets(this.selectedTab);
   }
 
   onChangeTab(eventId): void {

@@ -71,10 +71,10 @@
                     autofocus="true"
                     autocomplete="off" />
             <div class="checkbox">
-              <label for="Active">
+              <label for="{{asset ? 'Active_' + asset.ID : 'newActive'}}">
                 <input formControlName="Active"
                         type="checkbox"
-                        id="Active">
+                        id="{{asset ? 'Active_' + asset.ID : 'newActive'}}">
                 Active
               </label>
             </div>

@@ -12,7 +12,6 @@
           <cms-asset-update [assetType]="type"
                             [isNew]="false"
                             [asset]="asset"
-                            (onSubmit)="handleSubmit($event)"
                             (onDelete)="listAssets(type)"></cms-asset-update>
         </div>
       </div>
@@ -26,5 +25,5 @@
 <ng-template #uploadAssetModal>
   <cms-asset-upload [assetType]="selectedTab" 
                     (cancel)="modalReference.dismiss()"
-                    (submit)="modalReference.close()"></cms-asset-upload>
+                    (submit)="handleSubmit()"></cms-asset-upload>
 </ng-template>
