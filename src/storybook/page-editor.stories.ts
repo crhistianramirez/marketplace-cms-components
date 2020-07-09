@@ -9,16 +9,19 @@ import { ConfirmModalComponent } from 'src/app/components/confirm-modal/confirm-
 import { SectionTemplateRendererComponent } from 'src/app/components/section-template-renderer/section-template-renderer.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
+import { PageEditorComponent } from 'src/app/components/page-editor/page-editor.component';
 
 export default {
-  title: 'HTML Editor',
-  component: HtmlEditorComponent,
+  title: 'Page Editor',
+  component: PageEditorComponent,
   parameters: {
-    component: HtmlEditorComponent
+    component: PageEditorComponent
   },
   decorators: [
     moduleMetadata({
       declarations: [
+        PageEditorComponent,
+        HtmlEditorComponent,
         SectionPickerComponent, 
         CarouselEditorComponent,
         SectionDateSettingsComponent,
@@ -44,8 +47,20 @@ export default {
   ]
 };
 
-export const BasicExample = () => ({
-  component: HtmlEditorComponent,
+export const FullExample = () => ({
+  component: PageEditorComponent,
+  template: `<div class="jumbotron">
+  <div class="container">
+    <h1>Page Editor Demonstration</h1>
+  </div>
+</div>
+<div class="container">
+  <cms-page-editor
+    [renderSiteUrl]="buyerSiteUrl"
+    [editorOptions]="editorOptions"
+  ></cms-page-editor>
+</div>
+`,
   props: {
     ocToken: '',
     editorOptions: {
