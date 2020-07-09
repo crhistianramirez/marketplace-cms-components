@@ -1,9 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { MarketplaceSDK, Asset } from 'marketplace-javascript-sdk';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import {
-  faUpload
-} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'cms-asset-update',
@@ -13,7 +10,6 @@ import {
 export class AssetUpdateComponent implements OnInit {
   @ViewChild("fileDropRef", { static: false }) fileDropEl: ElementRef;
   assetForm: FormGroup;
-  faUpload = faUpload;
 
   @Input() asset?: Asset;
   @Input() assetType: any;
