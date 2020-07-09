@@ -21,7 +21,6 @@ import * as MarketplaceSdkInstance from 'marketplace-javascript-sdk';
   encapsulation: ViewEncapsulation.None
 })
 export class HtmlEditorComponent implements OnInit {
-  @Input() renderSiteUrl: string;
   @Input() initialValue: string;
   @Input() editorOptions: any;
   resolvedEditorOptions: any = {};
