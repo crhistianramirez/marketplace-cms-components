@@ -18,6 +18,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SectionPickerComponent } from './components/section-picker/section-picker.component';
 import { SectionTemplateRendererComponent } from './components/section-template-renderer/section-template-renderer.component';
 import { SafeHtmlPipe } from './pipes/safe-html.pipe';
+import { AssetListComponent } from './components/asset-list/asset-list.component';
+import { AssetUpdateComponent } from './components/asset-update/asset-update.component';
+import { AssetUploadComponent } from './components/asset-upload/asset-upload.component';
+import { DragAndDropDirective } from './directives/drag-and-drop.directive';
 import { SectionDateSettingsComponent } from './components/section-date-settings/section-date-settings.component';
 
 @NgModule({
@@ -31,6 +35,10 @@ import { SectionDateSettingsComponent } from './components/section-date-settings
     SectionPickerComponent,
     SectionTemplateRendererComponent,
     SafeHtmlPipe,
+    AssetListComponent,
+    AssetUpdateComponent,
+    AssetUploadComponent,
+    DragAndDropDirective,
     SectionDateSettingsComponent
   ],
   imports: [
