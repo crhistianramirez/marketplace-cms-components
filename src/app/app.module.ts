@@ -23,6 +23,7 @@ import { AssetUpdateComponent } from './components/asset-update/asset-update.com
 import { AssetUploadComponent } from './components/asset-upload/asset-upload.component';
 import { DragAndDropDirective } from './directives/drag-and-drop.directive';
 import { SectionDateSettingsComponent } from './components/section-date-settings/section-date-settings.component';
+import { AssetSearchComponent } from './components/asset-search/asset-search.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { SectionDateSettingsComponent } from './components/section-date-settings
     AssetUpdateComponent,
     AssetUploadComponent,
     DragAndDropDirective,
-    SectionDateSettingsComponent
+    SectionDateSettingsComponent,
+    AssetSearchComponent
   ],
   imports: [
     BrowserModule,
