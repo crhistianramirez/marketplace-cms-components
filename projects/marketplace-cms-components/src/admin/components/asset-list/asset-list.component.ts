@@ -18,11 +18,13 @@ export class CmsAssetListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.listAssets(this.assetTypes[0]);
+    this.listAssets(this.assetTypes[0], null);
   }
 
-  listAssets(assetType: string) {
-    return MarketplaceSDK.Assets.List({ filters: { Type: assetType } }).then(
+  listAssets(assetType: string, searchTerm: string) {
+    let options: any = { filters: { Type: assetType } };
+    if (searchTerm) options = { ...options, search: searchTerm };
+    return MarketplaceSDK.Assets.List().then(
       (assets) => {
         this.assets = assets;
       }
@@ -35,11 +37,15 @@ export class CmsAssetListComponent implements OnInit {
 
   handleSubmit() {
     this.modalReference.close();
-    this.listAssets(this.selectedTab);
+    this.listAssets(this.selectedTab, null);
+  }
+
+  handleSearch($event) {
+    this.listAssets(this.selectedTab, $event);
   }
 
   onChangeTab(eventId): void {
     this.selectedTab = eventId;
-    this.listAssets(this.selectedTab);
+    this.listAssets(this.selectedTab, null);
   }
 }
