@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
-import { MarketplaceSDK, Asset } from 'marketplace-javascript-sdk';
+import { MarketplaceSDK } from 'marketplace-javascript-sdk';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
@@ -11,7 +11,7 @@ export class CmsAssetUpdateComponent implements OnInit {
   @ViewChild("fileDropRef", { static: false }) fileDropEl: ElementRef;
   assetForm: FormGroup;
 
-  @Input() asset?: Asset;
+  @Input() asset?: any;
   @Input() assetType: any;
   @Input() isNew: boolean;
   @Output() onSubmit = new EventEmitter();

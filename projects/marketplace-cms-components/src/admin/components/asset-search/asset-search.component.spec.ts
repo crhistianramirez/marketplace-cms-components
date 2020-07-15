@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AssetSearchComponent } from './asset-search.component';
+import { CmsAssetSearchComponent } from './asset-search.component';
 
-describe('AssetSearchComponent', () => {
-  let component: AssetSearchComponent;
-  let fixture: ComponentFixture<AssetSearchComponent>;
+describe('CmsAssetSearchComponent', () => {
+  let component: CmsAssetSearchComponent;
+  let fixture: ComponentFixture<CmsAssetSearchComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AssetSearchComponent ]
+      declarations: [ CmsAssetSearchComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AssetSearchComponent);
+    fixture = TestBed.createComponent(CmsAssetSearchComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

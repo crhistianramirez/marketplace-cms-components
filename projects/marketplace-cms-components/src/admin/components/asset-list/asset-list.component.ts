@@ -23,8 +23,8 @@ export class CmsAssetListComponent implements OnInit {
 
   listAssets(assetType: string, searchTerm: string) {
     let options: any = { filters: { Type: assetType } };
-    if (searchTerm) options = { ...options, search: searchTerm };
-    return MarketplaceSDK.Assets.List().then(
+    if (searchTerm) options = { ...options, search: searchTerm, searchOn: 'Title' };
+    return MarketplaceSDK.Assets.List(options).then(
       (assets) => {
         this.assets = assets;
       }

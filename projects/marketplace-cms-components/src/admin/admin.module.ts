@@ -11,6 +11,7 @@ import { CmsSharedModule } from '../shared/shared.module';
 import { CmsAssetListComponent } from './components/asset-list/asset-list.component';
 import { CmsAssetUpdateComponent } from './components/asset-update/asset-update.component';
 import { CmsAssetUploadComponent } from './components/asset-upload/asset-upload.component';
+import { CmsAssetSearchComponent } from './components/asset-search/asset-search.component';
 import { CmsDragAndDropDirective } from './components/directives/drag-and-drop/drag-and-drop.directive';
 
 const declarations = [
@@ -24,6 +25,7 @@ const declarations = [
   CmsAssetListComponent,
   CmsAssetUpdateComponent,
   CmsAssetUploadComponent,
+  CmsAssetSearchComponent,
   CmsDragAndDropDirective,
 ]
 @NgModule({

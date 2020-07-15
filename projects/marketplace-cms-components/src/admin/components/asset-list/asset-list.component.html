@@ -9,7 +9,7 @@
       <div *ngIf="assets && assets.Items.length">
         <button class="btn btn-primary" (click)="handleUploadAssetModal(uploadAssetModal)">Upload {{type}}</button>
         <cms-asset-search [assetType]="type" placeholderText="{{'Search ' + type + 's'}}" [searchTerm]="" (searched)="handleSearch($event)"></cms-asset-search>
-        <div *ngFor="let asset of assets.Items">
+        <div class="row" *ngFor="let asset of assets.Items">
           <cms-asset-update [assetType]="type"
                             [isNew]="false"
                             [asset]="asset"
