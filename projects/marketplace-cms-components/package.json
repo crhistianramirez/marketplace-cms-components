@@ -7,14 +7,14 @@
     "@ng-bootstrap/ng-bootstrap": "^7.0.0",
     "bootstrap": "^4.5.0",
     "marketplace-javascript-sdk": "^1.5.0",
-    "tinymce": "^5.4.1",
+    "tinymce": "^5.7.1",
     "slick-carousel": "^1.8.1"
   },
   "dependencies": {
     "@tinymce/tinymce-angular": "^4.0.0",
     "case": "^1.6.3",
     "ngx-spinner": "^9.0.2",
-    "tinymce": "^5.4.1",
+    "tinymce": "^5.7.1",
     "tslib": "^2.0.0"
   }
 }
